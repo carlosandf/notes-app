@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Notes from './containers/Notes';
-import axios from 'axios';
 import { getAllNotes } from './services/notes/getAllNotes';
 import { createNote } from './services/notes/createNote';
 import './App.css';
