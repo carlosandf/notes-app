@@ -5,9 +5,13 @@ import './App.css';
 
 const API = 'https://notes-app-api.onrender.com/api/notes';
 
+const NOTE_INITIAL_VALUE = {
+  title: '',
+  body: ''
+}
 function App() {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState({});
+  const [newNote, setNewNote] = useState(NOTE_INITIAL_VALUE);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,7 +47,7 @@ function App() {
     createNote(API, noteToAdd)
       .then(data => setNotes(prev => [...prev, data]))
 
-    setNewNote('');
+    setNewNote(NOTE_INITIAL_VALUE);
   }
 
   return (
