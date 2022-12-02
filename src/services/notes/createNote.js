@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const createNote = (API , noteToAdd) => {
-  return (
-    axios
-      .post(API, noteToAdd)
-      .then(({ data }) => data)
-  );
-}
+	return (
+		axios
+			.post(API, noteToAdd)
+			.then(({ data }) => data)
+	);
+};
