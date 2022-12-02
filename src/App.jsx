@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
+import { getAllNotes, createNote } from './services/notes/';
 import Notes from './containers/Notes';
-import { getAllNotes } from './services/notes/getAllNotes';
-import { createNote } from './services/notes/createNote';
 import './App.css';
 
-const API = 'https://jsonplaceholder.typicode.com/posts';
+const API = 'https://notes-app-api.onrender.com/api/notes';
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
+  const [newNote, setNewNote] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,17 +19,26 @@ function App() {
       })
   }, []);
 
-  const handleChange = ({ target }) => {
-    setNewNote(target.value);
+
+  const handleChangeTitle = ({ target }) => {
+    setNewNote({
+      ...newNote,
+      title: target.value
+    });
+  }
+  const handleChangeBody = ({ target }) => {
+    setNewNote({
+      ...newNote,
+      body: target.value
+    });
   }
 
+  // Enviar datos al servidor
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const noteToAdd = {
-      title: newNote,
-      body: newNote,
-      userId: 1
+      ...newNote
     }
     createNote(API, noteToAdd)
       .then(data => setNotes(prev => [...prev, data]))
@@ -47,7 +55,8 @@ function App() {
           : <Notes notes={notes} />
       }
       <form onSubmit={handleSubmit}>
-        <input type="text" value={newNote} onChange={handleChange} />
+        <input type="text" value={newNote.title} onChange={handleChangeTitle} />
+        <input type="text" value={newNote.body} onChange={handleChangeBody} />
         <button>Crear nota</button>
       </form>
     </div>
