@@ -3,8 +3,7 @@ import { getAllNotes, createNote } from './services/notes/';
 import Notes from './containers/Notes';
 import './App.css';
 
-//const API = 'https://notes-app-api.onrender.com/api/notes';
-const API = 'http://localhost:3001/api/notes';
+const API = 'https://notes-app-api.onrender.com/api/notes';
 
 const NOTE_INITIAL_VALUE = {
 	title: '',
