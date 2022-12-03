@@ -3,8 +3,6 @@ import { getAllNotes, createNote } from './services/notes/';
 import Notes from './containers/Notes';
 import './App.css';
 
-const API = 'https://notes-app-api.onrender.com/api/notes';
-
 const NOTE_INITIAL_VALUE = {
 	title: '',
 	body: ''
@@ -16,7 +14,7 @@ function App() {
 
 	useEffect(() => {
 		setLoading(true);
-		getAllNotes(API)
+		getAllNotes()
 			.then(data => {
 				setNotes([...data]);
 				setLoading(false);
@@ -44,7 +42,7 @@ function App() {
 		const noteToAdd = {
 			...newNote
 		};
-		createNote(API, noteToAdd)
+		createNote(noteToAdd)
 			.then(data => setNotes(prev => [...prev, data]));
 
 		setNewNote(NOTE_INITIAL_VALUE);
@@ -56,7 +54,7 @@ function App() {
 			{
 				loading 
 					? <p>Cargando...</p> 
-					: <Notes notes={notes} />
+					: <Notes notes={notes} setNotes={setNotes} />
 			}
 			<form onSubmit={handleSubmit}>
 				<input type="text" value={newNote.title} onChange={handleChangeTitle} />

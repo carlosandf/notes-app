@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const createNote = (API , noteToAdd) => {
+const API = 'https://notes-app-api.onrender.com/api/notes';
+
+const createNote = (noteToAdd) => {
 	return (
 		axios
 			.post(API, noteToAdd)
@@ -8,11 +10,20 @@ const createNote = (API , noteToAdd) => {
 	);
 };
 
-const getAllNotes = (API) => {
+const getAllNotes = () => {
 	return (
 		axios
 			.get(API)
-			.then(({data}) => data)
+			.then(({ data }) => data)
 	);
 };
-export { createNote, getAllNotes };
+
+const deleteNote = (id) => {
+	return (
+		axios
+			.delete(`${API}/${id}`)
+			.then(({ data }) => data)
+	)
+}
+
+export { createNote, getAllNotes, deleteNote };
