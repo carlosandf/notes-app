@@ -5,7 +5,13 @@ const Note = ({ title, body, date, id, setNotes}) => {
 	
 	const handleDelete = () => {
 		deleteNote(id)
-			.then(data => setNotes(data))
+			.then(data => {
+				setNotes(prevState => {
+					return prevState.filter(nota => (
+						nota.id !== data.id
+					));
+				})
+			})
 	}
 	return (
 		<li>
